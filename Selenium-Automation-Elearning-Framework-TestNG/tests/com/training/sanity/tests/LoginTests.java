@@ -47,9 +47,14 @@ public class LoginTests {
 	}
 	@Test
 	public void validLoginTest() {
-		loginPOM.sendUserName("runp");
-		loginPOM.sendPassword("akshay");
+		
+		loginPOM.sendUserName("akshay");
+		loginPOM.sendPassword("ibmtest");
 		loginPOM.clickLoginBtn(); 
-		screenShot.captureScreenShot("5");
+	
+		//Validate if user gets logged in
+		
+		loginPOM.assertPageTitle();
+		screenShot.captureScreenShot("Successful_Login");
 	}
 }

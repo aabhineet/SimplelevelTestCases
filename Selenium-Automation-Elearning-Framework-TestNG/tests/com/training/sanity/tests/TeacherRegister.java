@@ -1,5 +1,4 @@
 package com.training.sanity.tests;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -48,21 +47,29 @@ public class TeacherRegister{
 	public void signUpTest() {
 		
 		RegisterPOM.clicksignUpBtn(); 
+		// verify if the user is on the registration page
 		RegisterPOM.assertPageTitle();
+		
+		// Click on Teacher radio button
 		RegisterPOM.registerTeacher();
+		
+		// Enter details
 		RegisterPOM.firstName("Akshay");
 		RegisterPOM.lastName("Jha");
-		screenShot.captureScreenShot("3");
+		screenShot.captureScreenShot("Teacher_Selected");
 		RegisterPOM.email("akshajha@in.ibm.com");
 		RegisterPOM.username("Teacher01");
 		RegisterPOM.password("akshay");
 		RegisterPOM.confrmpassword("akshay");
 		RegisterPOM.phone("8452886923");
+		RegisterPOM.selectlanguage("English");
 		RegisterPOM.clickSubmit();
-		RegisterPOM.AssertRegisterText();
-		screenShot.captureScreenShot("4");
 		
-
+		// Validate whether the user is created successfully
+		
+		RegisterPOM.AssertRegisterText();
+		screenShot.captureScreenShot("Teacher_created");
+		
 	}
 	
 	}

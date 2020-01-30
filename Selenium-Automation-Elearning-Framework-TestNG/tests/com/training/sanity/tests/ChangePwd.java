@@ -54,27 +54,25 @@ public class ChangePwd {
 		
 		// Login as a registered user
 		loginPOM.sendUserName("akshay");
-		loginPOM.sendPassword("akshay");
+		loginPOM.sendPassword("ibmtest");
 		loginPOM.clickLoginBtn(); 
 		screenShot.captureScreenShot("Login_Successful");
 	
-		// On Homepage after login to edit profile
-		
+		// User is on Home page after login to edit user profile
 		ChangePwdPOM.clickEditProfile();
 		
 		// Validate Edit profile page is opened
 		ChangePwdPOM.assertPageTitle();
 		
-		// Provide the field values
-		
-		ChangePwdPOM.sendoldPassword("akshay");
-		ChangePwdPOM.sendnewPassword("ibmtest");
-		ChangePwdPOM.sendcnfrmnewPassword("ibmtest");
+		// Enter the details
+		ChangePwdPOM.sendoldPassword("ibmtest");
+		ChangePwdPOM.sendnewPassword("ibmtest1");
+		ChangePwdPOM.sendcnfrmnewPassword("ibmtest1");
 		ChangePwdPOM.clickapplyChange();
 		
 		// Validate whether the profile is updated 
-		
 		ChangePwdPOM.AssertupdateMessage();
+		
 		screenShot.captureScreenShot("Pwd_Reset");	
 	}
 }

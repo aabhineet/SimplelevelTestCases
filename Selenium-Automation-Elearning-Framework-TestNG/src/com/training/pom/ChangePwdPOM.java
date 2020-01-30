@@ -39,8 +39,7 @@ public class ChangePwdPOM {
 	public void clickEditProfile() {
 		this.EditProfile.click(); 
 	}
-	
-	public void assertPageTitle() {
+		public void assertPageTitle() {
 		String expectedTitle = "My Organization - My education - Profile";
 		String actualTitle=driver.getTitle();
 		//assert Title of the page 

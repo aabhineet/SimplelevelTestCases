@@ -20,7 +20,6 @@ public class RegisterPOM {
 		PageFactory.initElements(driver, this);
 	}
 
-
 	@FindBy(linkText="Sign up!")
 	private WebElement signUpBtn;
 	
@@ -29,7 +28,6 @@ public class RegisterPOM {
 	
 	@FindBy(xpath="//*[@class='caption' and text()='Teach courses']")
 	private WebElement radioteacher;
-
 	
 	@FindBy(id="registration_firstname")
 	private WebElement firstname;
@@ -63,18 +61,16 @@ public class RegisterPOM {
 
 	public void clicksignUpBtn() {
 		this.signUpBtn.click(); 
-
 	}
+	
 	public void assertPageTitle() {
 		String expectedTitle = "My Organization - My education - Registration";
 		String actualTitle=driver.getTitle();
 		//assert Title of the page 
 		assertEquals(actualTitle, expectedTitle);
-
 	}
 	public void registerstudent() {
 		boolean ckIschecked = radiostudent.isSelected();
-		
 		if(!ckIschecked) {
 			radiostudent.click();
 		}
@@ -86,7 +82,6 @@ public class RegisterPOM {
 			radioteacher.click();
 		}
 	}
-
 
 	public void firstName(String firstname) {
 		this.firstname.clear();
@@ -120,11 +115,9 @@ public class RegisterPOM {
 		this.phone.sendKeys(phone);
 	}
 
-	public void language() {
-		this.language.clear();
+	public void selectlanguage(String str) {
 		Select sellanguage= new Select(language);
-		sellanguage.selectByVisibleText("English");
-
+		sellanguage.selectByVisibleText(str);
 	}
 	public void clickSubmit() {
 		this.submit.click(); 
@@ -133,8 +126,6 @@ public class RegisterPOM {
 	public void AssertRegisterText() {
 		String actualText=Text.getText();
 		//assertEquals(actualText, expectedText); 
-
 		assertTrue(actualText.contains("Dear Akshay Jha"));
 	}
-
 }

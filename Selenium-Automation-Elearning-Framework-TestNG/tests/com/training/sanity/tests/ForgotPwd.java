@@ -11,15 +11,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.RegisterPOM;
+import com.training.pom.ForgotPwdPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class StudentRegister{
+/* ############# EMAIL FACILITY IS NOT AVAILABLE HENCE CODE IS UPTO SEND MAIL ################ */
+
+public class ForgotPwd {
 
 	private WebDriver driver;
 	private String baseUrl;
-	private RegisterPOM RegisterPOM;
+	private ForgotPwdPOM ForgotPwdPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -29,43 +31,29 @@ public class StudentRegister{
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
 	}
+
 	@BeforeMethod
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		RegisterPOM = new RegisterPOM(driver); 
+		ForgotPwdPOM = new ForgotPwdPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
 	}
-	
+
 	@AfterMethod
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
 	}
 	@Test
-	public void signUpTest() {
-		
-		RegisterPOM.clicksignUpBtn(); 
-		// verify if the user is on the registration page
-		RegisterPOM.assertPageTitle();
-		screenShot.captureScreenShot("First");
-		
-		//Enter the details
-		RegisterPOM.firstName("Akshay");
-		RegisterPOM.lastName("Jha");
-		RegisterPOM.email("akshajha@in.ibm.com");
-		RegisterPOM.username("akzzsh");
-		RegisterPOM.password("akshay");
-		RegisterPOM.confrmpassword("akshay");
-		RegisterPOM.phone("8452886923");
-		RegisterPOM.selectlanguage("English");
-		RegisterPOM.clickSubmit();
-		
-		//Validate if the user is created successfully
-		RegisterPOM.AssertRegisterText();
-		
-		screenShot.captureScreenShot("Second");
-			}
-		}
+	public void validLoginTest() {
+
+		ForgotPwdPOM.clickFrgtLink();
+		ForgotPwdPOM.assertPageTitle();
+		ForgotPwdPOM.sendUserName("akshay");
+		ForgotPwdPOM.clicksubmitBtn();
+		screenShot.captureScreenShot("Mail_Triggered");
+	}
+}
