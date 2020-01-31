@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -24,14 +25,10 @@ public class LoginTests {
 	private ScreenShot screenShot;
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws IOException {
+	public void setUpBeforeClass() throws IOException {
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
-	}
-
-	@BeforeMethod
-	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
 		loginPOM = new LoginPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
@@ -39,8 +36,9 @@ public class LoginTests {
 		// open the browser 
 		driver.get(baseUrl);
 	}
+
 	
-	@AfterMethod
+	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
@@ -49,7 +47,7 @@ public class LoginTests {
 	public void validLoginTest() {
 		
 		loginPOM.sendUserName("akshay");
-		loginPOM.sendPassword("ibmtest");
+		loginPOM.sendPassword("ibmtest4");
 		loginPOM.clickLoginBtn(); 
 	
 		//Validate if user gets logged in

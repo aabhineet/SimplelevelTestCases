@@ -6,25 +6,21 @@ import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
 import com.training.pom.LoginPOM;
-import com.training.pom.ChangePwdPOM;
+import com.training.pom.SubscribeClassPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class ChangePwd{
-	
+public class SubscribeClass {
+
 	private WebDriver driver;
 	private String baseUrl;
 	private LoginPOM loginPOM;
-	private ChangePwdPOM ChangePwdPOM;
+	private SubscribeClassPOM SubscribeClassPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 
@@ -33,43 +29,41 @@ public class ChangePwd{
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
-		
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		loginPOM = new LoginPOM(driver); 
-		ChangePwdPOM = new ChangePwdPOM(driver);
+		loginPOM = new LoginPOM(driver);
+		SubscribeClassPOM = new SubscribeClassPOM(driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
 	}
+	
 	@AfterClass
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-	@Test 
-	public void pwdReset() {
+	@Test
+	public void validLoginTest() {
 		
-		// Login as a registered user
-		loginPOM.sendUserName("akshay");
-		loginPOM.sendPassword("ibmtest3");
+		loginPOM.sendUserName("admin");
+		loginPOM.sendPassword("admin@123");
 		loginPOM.clickLoginBtn(); 
-		screenShot.captureScreenShot("Login_Successful");
 	
-		// User is on Home page after login to edit user profile
-		ChangePwdPOM.clickEditProfile();
+	}
+	@Test(dependsOnMethods = "validLoginTest")
+	public void SubscribeClasstoUser() throws InterruptedException {
 		
-		// Validate Edit profile page is opened
-		ChangePwdPOM.assertPageTitle();
+		SubscribeClassPOM.selectclasslink();
+		SubscribeClassPOM.assertPageTitle();
+		SubscribeClassPOM.selectClasses();
+		SubscribeClassPOM.SubcribeUser();
+		SubscribeClassPOM.ClickMoveRight();
+		SubscribeClassPOM.SubscribeUserClass();
 		
-		// Enter the details
-		ChangePwdPOM.sendoldPassword("ibmtest3");
-		ChangePwdPOM.sendnewPassword("ibmtest4");
-		ChangePwdPOM.sendcnfrmnewPassword("ibmtest4");
-		ChangePwdPOM.clickapplyChange();
+		screenShot.captureScreenShot("Course_Added");
 		
-		// Validate whether the profile is updated 
-		ChangePwdPOM.AssertupdateMessage();
-		screenShot.captureScreenShot("Pwd_Reset");	
+		// Verify the table value for new added student
+		SubscribeClassPOM.VerifyUserCount();
 	}
 }
