@@ -5,8 +5,10 @@ import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 public class LoginPOM {
 	private WebDriver driver; 
@@ -24,6 +26,12 @@ public class LoginPOM {
 	
 	@FindBy(id="form-login_submitAuth")
 	private WebElement loginBtn; 
+	
+	@FindBy(xpath="//a[@class='dropdown-toggle']")
+	private WebElement profileclick;
+	
+	@FindBy(id="//a[@id='logout_button']")
+	private WebElement logoutBtn;
 	
 	public void sendUserName(String userName) {
 		this.userName.clear();
@@ -44,5 +52,14 @@ public class LoginPOM {
 		String actualTitle=driver.getTitle();
 		//assert Title of the page 
 		assertEquals(actualTitle, expectedTitle);
+	}
+	
+	public void profileclick() {
+		this.profileclick.click(); 
+	}
+	public void clicklogoutBtn() {
+		 Actions act = new Actions(driver);
+		 act.moveToElement(logoutBtn).click();
+	 
 	}
 }
